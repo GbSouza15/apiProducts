@@ -1,5 +1,4 @@
 {
-    "products": [
         {
             "id": 1,
             "name": "Camisa Polo",
@@ -80,5 +79,5 @@
             "description": "Óculos de sol com armação de acetato e lentes polarizadas. Ideal para proteger os olhos dos raios solares.",
             "image": "https://images.tcdn.com.br/img/img_prod/810719/oculos_de_sol_oakley_quadrado_oo9018_ojector_3191_1_8d7b4a0542f8b5ebf1be0315fd8b4edb.jpg"
           }
-    ]
+}
 }
