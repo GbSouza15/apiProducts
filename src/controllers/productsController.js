@@ -1,20 +1,44 @@
-const express = require('express')
-const { getAllProducts } = require('../models/productModels')
+const prisma = require('../databases')
 
-const getAllProductsController = (request, response) => {
-    const products = getAllProducts()
-    response.json(products)
+const getAllProductsController = async (req, res) => {
+    const products = await prisma.product.findMany()
+    return res.status(200).json(products)
 }
 
-const getIdProducts = (request, response) => {
-    const id = Number(request.params.id)
-    const products = getAllProducts()
-    const product = products.find(product => product.id === id)
+const getIdProducts = async (req, res) => {
+    const id = Number(req.params.id)
+    const product = await prisma.product.findUnique({
+        where: {
+            id
+        }
+    })
 
-    product ? response.json(product) : response.status(404).json({ 'error': 'product not found' })
+    product ? res.json(product) : res.status(404).json({ 'error': 'product not found' })
+}
+
+const createProduct = async (req, res) => {
+    const { body } = req
+    const product = await prisma.product.create({
+        data: {
+            ...body
+        }
+    })
+    return res.status(201).json(product)
+}
+
+const removeProduct = async (req, res) => {
+    const { id } = req.params
+    await prisma.product.delete({
+        where: {
+            id : Number(id) 
+        }
+    })
+    return res.status(203).json()
 }
 
 module.exports = {
     getAllProductsController, 
-    getIdProducts
+    getIdProducts,
+    createProduct,
+    removeProduct
 }

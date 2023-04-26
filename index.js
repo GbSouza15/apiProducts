@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const router = require('./src/routers/userRouter')
+const productRoutes = require('./src/routers/productRoutes')
 const rateLimit = require('express-rate-limit')
 
 app.use(express.json())
@@ -14,9 +14,9 @@ const limiter = rateLimit({
 })
 
 app.use(limiter)
-app.use(router)
+app.use(productRoutes)
 
-const PORT = process.env.PORT || 3333
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
-    console.log(`Server is running or port ${PORT}`);
+    console.log('http://localhost:3000');
 })
